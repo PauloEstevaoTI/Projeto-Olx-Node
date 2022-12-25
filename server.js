@@ -6,6 +6,8 @@ const fileupload = require('express-fileupload')
 
 // import  mongoConnect  from './src/database/mongo';
 
+const apiRoutes = require('./src/routes')
+
 mongoose.set("strictQuery", true);
 mongoose.connect(process.env.DATABASE, {
     // userNewUrlParser: true,
@@ -26,8 +28,6 @@ server.use(fileupload());
 
 server.use(express.static(__dirname+'/public'))
 
-server.get('/ping', (req, res)=> {
-    res.json({pong: true})
-})
+server.use('/', apiRoutes)
 
 server.listen(process.env.PORT);
